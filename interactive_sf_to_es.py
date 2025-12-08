@@ -22,7 +22,7 @@ from config import get_elasticsearch_config, validate_es_config
 
 # Configure logging
 logging.basicConfig(
-    level=getattr(logging, LOG_LEVEL),
+    level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler('interactive_sf_to_es.log'),
