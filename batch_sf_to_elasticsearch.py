@@ -108,7 +108,6 @@ class SalesforceBatchProcessor:
                         "account_name": {"type": "text", "fields": {"keyword": {"type": "keyword"}}},
                         "close_date": {"type": "date"},
                         "amount": {"type": "double"},
-                        "tcv_amount": {"type": "double"},
                         "extracted_at": {"type": "date"},
                         "source": {"type": "keyword"}
                     }
@@ -150,8 +149,7 @@ class SalesforceBatchProcessor:
             Name,
             Account.Name,
             CloseDate,
-            Amount,
-            TCV__c
+            Amount
         FROM Opportunity 
         WHERE Id IN ('{ids_str}')
         """
@@ -167,7 +165,6 @@ class SalesforceBatchProcessor:
                     'account_name': opp['Account']['Name'] if opp.get('Account') else None,
                     'close_date': opp['CloseDate'],
                     'amount': opp['Amount'],
-                    'tcv_amount': opp.get('TCV__c'),
                     'extracted_at': datetime.utcnow().isoformat(),
                     'source': 'salesforce_batch'
                 }
