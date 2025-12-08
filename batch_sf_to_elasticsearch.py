@@ -31,10 +31,10 @@ from config import get_elasticsearch_config, validate_es_config, get_elasticsear
 
 # Configure logging
 logging.basicConfig(
-    level=getattr(logging, LOG_LEVEL),
+    level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler(f'batch_{LOG_FILE}'),
+        logging.FileHandler(f'batch_sf_to_es.log'),
         logging.StreamHandler(sys.stdout)
     ]
 )
@@ -142,7 +142,7 @@ class SalesforceBatchProcessor:
             return []
         
         # Create comma-separated list for IN clause
-        ids_str = "','"join(opportunity_ids)
+        ids_str = "','".join(opportunity_ids)
         
         soql_query = f"""
         SELECT 
