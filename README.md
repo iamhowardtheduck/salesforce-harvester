@@ -29,7 +29,7 @@ pip install simple-salesforce elasticsearch requests --break-system-packages
 
 2. Ensure you have access to:
    - Salesforce instance: https://elastic.my.salesforce.com
-   - Elasticsearch cluster: https://er-tracker.es.us-east-2.aws.elastic-cloud.com
+   - The Elastic cluster you plan on sending data to
 
 ## Configuration
 
