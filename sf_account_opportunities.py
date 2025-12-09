@@ -409,6 +409,72 @@ class AccountOpportunitiesProcessor:
                     status = "WON" if deal['is_won'] else "LOST"
                     print(f"      {j}. ${deal['amount']:,.2f} - {deal['opportunity_name']} [{status}]")
 
+    def index_to_elasticsearch(self, opportunities: List[Dict[str, Any]]) -> bool:
+        """Index account opportunities to Elasticsearch."""
+        if not self.es:
+            logger.error("No Elasticsearch connection available")
+            return False
+        
+        try:
+            from elasticsearch.helpers import bulk
+            
+            # Create index if it doesn't exist
+            index_name = self.es_config['index']
+            if not self.es.indices.exists(index=index_name):
+                mapping = {
+                    "mappings": {
+                        "properties": {
+                            "opportunity_id": {"type": "keyword"},
+                            "opportunity_name": {"type": "text", "fields": {"keyword": {"type": "keyword"}}},
+                            "account_id": {"type": "keyword"},
+                            "account_name": {"type": "text", "fields": {"keyword": {"type": "keyword"}}},
+                            "close_date": {"type": "date"},
+                            "amount": {"type": "double"},
+                            "stage_name": {"type": "keyword"},
+                            "is_won": {"type": "boolean"},
+                            "is_closed": {"type": "boolean"},
+                            "type": {"type": "keyword"},
+                            "probability": {"type": "double"},
+                            "created_date": {"type": "date"},
+                            "last_modified_date": {"type": "date"},
+                            "owner_name": {"type": "text", "fields": {"keyword": {"type": "keyword"}}},
+                            "owner_id": {"type": "keyword"},
+                            "description": {"type": "text"},
+                            "lead_source": {"type": "keyword"},
+                            "forecast_category": {"type": "keyword"},
+                            "extracted_at": {"type": "date"},
+                            "source": {"type": "keyword"}
+                        }
+                    }
+                }
+                self.es.indices.create(index=index_name, body=mapping)
+                logger.info(f"Created index '{index_name}' with mapping")
+            
+            # Prepare documents for bulk indexing
+            actions = []
+            for opp in opportunities:
+                action = {
+                    '_index': index_name,
+                    '_id': opp['opportunity_id'],  # Use opportunity ID as document ID
+                    '_source': opp
+                }
+                actions.append(action)
+            
+            # Perform bulk indexing
+            success, failed = bulk(self.es, actions, index=index_name)
+            
+            logger.info(f"Elasticsearch indexing: {success} successful, {len(failed)} failed")
+            
+            if failed:
+                for failure in failed:
+                    logger.error(f"Failed to index: {failure}")
+            
+            return len(failed) == 0
+            
+        except Exception as e:
+            logger.error(f"Error indexing to Elasticsearch: {str(e)}")
+            return False
+
 def parse_date(date_str: str) -> str:
     """Parse date string and return in Salesforce format."""
     try:
@@ -512,6 +578,13 @@ def main():
         print("❌ Failed to connect to Salesforce")
         sys.exit(1)
     
+    # Connect to Elasticsearch if needed
+    if not args.json_only and es_config:
+        print("🔍 Connecting to Elasticsearch...")
+        if not processor.connect_elasticsearch():
+            print("⚠️  Failed to connect to Elasticsearch, switching to JSON-only mode")
+            args.json_only = True
+    
     # Extract account IDs
     account_ids = []
     
@@ -559,6 +632,15 @@ def main():
     
     # Display analysis
     processor.display_analysis(analysis)
+    
+    # Index to Elasticsearch if not JSON-only mode
+    if not args.json_only and processor.es:
+        print(f"\n🔍 Indexing to Elasticsearch...")
+        if processor.index_to_elasticsearch(opportunities):
+            print(f"✅ Successfully indexed {len(opportunities)} opportunities to Elasticsearch")
+            print(f"   Index: {processor.es_config['index']}")
+        else:
+            print("⚠️  Some opportunities failed to index to Elasticsearch")
     
     # Save to JSON
     if args.output_file or args.json_only:
