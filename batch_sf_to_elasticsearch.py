@@ -104,8 +104,8 @@ class SalesforceBatchProcessor:
                 "mappings": {
                     "properties": {
                         "opportunity_id": {"type": "keyword"},
-                        "opportunity_name": {"type": "text", "fields": {"keyword": {"type": "keyword"}}},
-                        "account_name": {"type": "text", "fields": {"keyword": {"type": "keyword"}}},
+                        "opportunity_name": {"type": "keyword"},
+                        "account_name": {"type": "keyword"},
                         "close_date": {"type": "date"},
                         "amount": {"type": "double"},
                         "extracted_at": {"type": "date"},
