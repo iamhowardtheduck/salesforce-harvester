@@ -14,8 +14,6 @@ A comprehensive toolkit for extracting, analyzing, and indexing Salesforce data 
 
 ## 🎯 **Perfect for Your Workflows**
 
-- **🔍 Fraud Detection** - Pattern analysis across accounts, investigation case tracking
-- **📊 AML Compliance** - Audit trails, timeline analysis, cross-account patterns
 - **💼 Sales Intelligence** - Performance analytics, account health, pipeline analysis
 - **🎫 Support Operations** - Case management, resolution tracking, escalation patterns
 - **📈 Executive Reporting** - Real-time dashboards, trend analysis, performance metrics
@@ -27,8 +25,8 @@ A comprehensive toolkit for extracting, analyzing, and indexing Salesforce data 
 ### **1. Setup (One-Time)**
 ```bash
 # Clone or download the toolkit
-git clone <repository_url>
-cd salesforce-elasticsearch-toolkit
+git clone https://github.com/iamhowardtheduck/salesforce-harvester.git
+cd salesforce-harvester
 
 # Run automated setup
 chmod +x setup.sh
@@ -411,9 +409,8 @@ python3 sf_closed_opportunities.py
 
 ### **Elasticsearch Index Mappings**
 The toolkit automatically creates optimized Elasticsearch mappings for:
-- **Full-text search** (subjects, descriptions, names)
 - **Date range filtering** (creation, close, modification dates)
-- **Keyword aggregations** (status, stage, priority, type)
+- **Keyword aggregations** (status, stage, priority, type, subjects, descriptions, names)
 - **Numeric analysis** (amounts, probabilities, counts)
 - **Nested objects** (case comments, account relationships)
 - **Boolean filtering** (won/lost, open/closed, escalated)
@@ -657,29 +654,6 @@ def analyze_account_health(account_id):
 ```
 
 ---
-
-## 🎯 **Why This Toolkit is Perfect for Fraud Detection**
-
-### **Investigation Capabilities**
-- **📞 Case Comments** = Investigation notes with full audit trail
-- **🔗 Cross-Reference** = Link suspicious accounts across opportunities and cases
-- **📊 Pattern Detection** = Identify unusual patterns across accounts and time
-- **⏰ Timeline Analysis** = Reconstruct events for compliance reporting
-- **🚨 Priority Tracking** = Monitor high-priority incidents and escalations
-
-### **Compliance Features**
-- **📋 Audit Trail** = Complete data lineage with extracted_at timestamps
-- **🔒 Data Integrity** = Bulk processing with validation and error handling
-- **📈 Reporting** = Executive dashboards and detailed analytics
-- **🎯 Filtering** = Date ranges, priorities, statuses for compliance periods
-- **💾 Export** = JSON export for regulatory submissions
-
-### **AML Integration**
-- **🏢 Account Monitoring** = Track all activities across an account
-- **📞 Investigation Notes** = Case comments provide investigation documentation
-- **🔍 Pattern Analysis** = Cross-account analysis for suspicious activity
-- **📊 Risk Scoring** = Combine sales and support data for risk assessment
-- **⚡ Real-time** = Live dashboards for monitoring and alerting
 
 ---
 
