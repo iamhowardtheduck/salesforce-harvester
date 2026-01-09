@@ -1,0 +1,174 @@
+{
+  "processors": [
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "account_id",
+        "target_field": "account.id"
+      }
+    },
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "account_name",
+        "target_field": "account.name"
+      }
+    },
+    {
+      "rename": {
+        "field": "amount",
+        "target_field": "account.opportunity.amount_local_currency",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "amount_converted",
+        "target_field": "account.opportunity.amount_USD",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "close_date",
+        "target_field": "account.opportunity.close_date"
+      }
+    },
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "created_date",
+        "target_field": "account.opportunity.created_date"
+      }
+    },
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "extracted_at",
+        "target_field": "account.opportunity.extracted_at"
+      }
+    },
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "is_closed",
+        "target_field": "account.opportunity.is_closed"
+      }
+    },
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "is_won",
+        "target_field": "account.opportunity.is_won"
+      }
+    },
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "last_modified_date",
+        "target_field": "account.opportunity.last_modified_date"
+      }
+    },
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "opportunity_id",
+        "target_field": "account.opportunity.opportunity_id"
+      }
+    },
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "opportunity_name",
+        "target_field": "account.opportunity.name"
+      }
+    },
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "owner_id",
+        "target_field": "account.owner_id"
+      }
+    },
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "owner_name",
+        "target_field": "account.owner_name"
+      }
+    },
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "probability",
+        "target_field": "account.opportunity.probability"
+      }
+    },
+    {
+      "rename": {
+        "ignore_failure": true,
+        "ignore_missing": true,
+        "field": "stage_name",
+        "target_field": "account.opportunity.stage_name"
+      }
+    },
+    {
+      "rename": {
+        "field": "currency_iso_code",
+        "target_field": "account.currency_iso_code",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "conversion_successful",
+        "target_field": "account.conversion_successful",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "conversion_rate",
+        "target_field": "account.conversion_rate",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "rename": {
+        "field": "conversion_note",
+        "target_field": "account.conversion_description",
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    },
+    {
+      "remove": {
+        "field": [
+          "source",
+          "converted_currency"
+        ],
+        "ignore_missing": true,
+        "ignore_failure": true
+      }
+    }
+  ]
+}
