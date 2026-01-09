@@ -71,6 +71,7 @@ A comprehensive, production-ready toolkit for extracting Salesforce opportunity 
 # 1. Clone the repository
 git clone https://github.com/iamhowardtheduck/salesforce-harvester.git
 cd salesforce-to-elasticsearch-integration
+python3 -m venv venv && source venv/bin/activate
 
 # 2. Install Python dependencies
 pip install -r requirements.txt
