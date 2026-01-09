@@ -69,7 +69,7 @@ A comprehensive, production-ready toolkit for extracting Salesforce opportunity 
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/iamhowardtheduck/salesforce-to-elasticsearch-integration.git
+git clone https://github.com/iamhowardtheduck/salesforce-harvester.git
 cd salesforce-to-elasticsearch-integration
 
 # 2. Install Python dependencies
