@@ -1,0 +1,100 @@
+{
+  "priority": 900,
+  "template": {
+    "mappings": {
+      "properties": {
+        "account": {
+          "dynamic": true,
+          "type": "object",
+          "enabled": true,
+          "properties": {
+            "conversion_successful": {
+              "type": "boolean"
+            },
+            "owner_name": {
+              "type": "keyword"
+            },
+            "owner_id": {
+              "type": "keyword"
+            },
+            "currency_iso_code": {
+              "type": "keyword"
+            },
+            "name": {
+              "type": "keyword"
+            },
+            "opportunity": {
+              "type": "object",
+              "properties": {
+                "close_date": {
+                  "type": "date"
+                },
+                "opportunity_id": {
+                  "type": "keyword"
+                },
+                "probability": {
+                  "type": "long"
+                },
+                "extracted_at": {
+                  "type": "date"
+                },
+                "stage_name": {
+                  "type": "keyword"
+                },
+                "amount_local_currency": {
+                  "coerce": true,
+                  "index": true,
+                  "ignore_malformed": false,
+                  "store": false,
+                  "type": "long",
+                  "doc_values": true
+                },
+                "name": {
+                  "type": "keyword"
+                },
+                "last_modified_date": {
+                  "type": "date"
+                },
+                "amount_USD": {
+                  "type": "long"
+                },
+                "created_date": {
+                  "type": "date"
+                },
+                "is_closed": {
+                  "type": "boolean"
+                },
+                "is_won": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "id": {
+              "type": "keyword"
+            },
+            "conversion_rate": {
+              "type": "half_float"
+            },
+            "conversion_description": {
+              "type": "keyword"
+            }
+          },
+          "subobjects": true
+        }
+      }
+    },
+    "settings": {
+      "index": {
+        "number_of_replicas": "1",
+        "default_pipeline": "sf-to-es",
+        "mode": "standard"
+      }
+    }
+  },
+  "index_patterns": [
+    "salesforce-opps*"
+  ],
+  "composed_of": [],
+  "ignore_missing_component_templates": [],
+  "allow_auto_create": true
+}
